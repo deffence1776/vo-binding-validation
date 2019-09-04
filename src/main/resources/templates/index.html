@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>フォーム</title>
+</head>
+<body>
+<span  th:text="${msg}">msg</span>
+
+<form action="#" th:action="@{/}" th:object="${sampleForm}" method="post">
+    <label for="username">ユーザー名</label>
+    <input  id="username" type="text"  th:field="*{username}"  >
+    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username error</span>
+    <br/>
+    <label for="age">年齢</label>
+    <input  id="age" type="text"  th:field="*{age}"  >
+    <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age error</span>
+    <input type="submit" value="送信">
+</form>
+</body>
+</html>

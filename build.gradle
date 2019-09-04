@@ -1,0 +1,31 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.7.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+}
+
+group = 'com.deffence1776.example'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(group: 'junit')
+	}
+	testImplementation platform("org.junit:junit-bom:5.3.2")
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+	testImplementation("org.junit.jupiter:junit-jupiter-params")
+	testRuntimeClasspath("org.junit.platform:junit-platform-launcher")
+	testRuntimeClasspath("org.junit.jupiter:junit-jupiter-engine")
+	testImplementation("org.assertj:assertj-core:3.11.1")
+}
