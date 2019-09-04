@@ -20,3 +20,51 @@
 ## 制約
 * 引数一つのコンストラクタを持つ値オブジェクトだけが対象
 * 値オブジェクトにはtoStringはそのまま入力値として表示させるようにオーバーライド必須。値オブジェクトを不変オブジェクトのまま、formバインディングとバリデーションをStringのような組み込み型のようなものとして使えるようにする。
+
+## 利用例
+Formクラス
+```java
+package com.deffence1776.example.presentation;
+import com.deffence1776.example.domain.Age;
+import com.deffence1776.example.domain.Username;
+import com.deffence1776.example.fw.validations.ValueObject;
+import javax.validation.constraints.NotNull;
+
+public class SampleForm {
+
+    @ValueObject(emptyToNull = false)
+    Username username;
+
+    @ValueObject(parameterType = Integer.class,emptyToNull = true)
+    @NotNull
+    Age age;
+
+    //setter　getterは省略
+    
+}
+```
+
+テンプレート
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>フォーム</title>
+</head>
+<body>
+<span  th:text="${msg}">msg</span>
+
+<form action="#" th:action="@{/}" th:object="${sampleForm}" method="post">
+    <label for="username">ユーザー名</label>
+    <input  id="username" type="text"  th:field="*{username}"  >
+    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username error</span>
+    <br/>
+    <label for="age">年齢</label>
+    <input  id="age" type="text"  th:field="*{age}"  >
+    <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age error</span>
+    <input type="submit" value="送信">
+</form>
+</body>
+</html>
+```
